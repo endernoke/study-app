@@ -1,14 +1,18 @@
 {
   "name": "study-app",
   "version": "0.1.0",
-  "description": "Webapp to turn studying into an engaging social activity",
-  "main": "",
+  "description": "Generate multiple-choice questions from your study material.",
+  "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/server.js"
   },
   "keywords": [
     "study"
   ],
   "author": "James Zheng",
   "license": "ISC"
+  "engines": {
+    "node": "22.x"
+  },
 }

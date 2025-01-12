@@ -19,6 +19,7 @@ const ActionButtons = ({ setQuestions, setIsLoading }) => {
       });
       if (response.ok) {
         const data = await response.json();
+        console.log(data.questions);
         setQuestions(data.questions);
       } else {
         const errorData = await response.json();
@@ -40,7 +41,7 @@ const ActionButtons = ({ setQuestions, setIsLoading }) => {
           type="file"
           id="file-upload"
           onChange={handleFileUpload}
-          accept=".docx,.doc,.pptx,.pdf,.txt"
+          accept=".txt"
           style={{ display: 'none' }}
         />
         <label htmlFor="file-upload" className="action-button">

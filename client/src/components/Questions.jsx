@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import QuestionCard from './QuestionCard';
 import ActionButtons from './ActionButtons';
 import ProgressBar from './ProgressBar';
+import LoadingSpinner from './LoadingSpinner';
 import './Questions.css';
 
 const Questions = () => {
@@ -104,7 +105,7 @@ const Questions = () => {
       onTouchEnd={handleTouchEnd}
     >
       {isLoading ? (
-        <div className="loading-spinner">Loading questions...</div>
+        <LoadingSpinner message="Loading questions..." />
       ) : (
         questions.length > 0 && (
           <>
@@ -117,13 +118,16 @@ const Questions = () => {
                 onAnswerSelect={handleAnswerSelect}
               />
             </div>
-            <ActionButtons setQuestions={(newQuestions) => {
-              setQuestions(newQuestions);
-              setCurrentIndex(0);
-              setIsAnswered(false);
-              setSelectedAnswer(null);
-              console.log(JSON.stringify(newQuestions));
-            }} />
+            <ActionButtons 
+              setQuestions={(newQuestions) => {
+                setQuestions(newQuestions);
+                setCurrentIndex(0);
+                setIsAnswered(false);
+                setSelectedAnswer(null);
+                setIsLoading(false);
+              }} 
+              setIsLoading={setIsLoading}
+            />
             <ProgressBar 
               current={currentIndex + 1} 
               total={questions.length} 

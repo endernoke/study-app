@@ -1,12 +1,14 @@
 import React from 'react';
 import { FaLightbulb, FaBookmark, FaComments, FaUpload } from 'react-icons/fa';
+import LoadingSpinner from './LoadingSpinner';
 import './ActionButtons.css';
 
-const ActionButtons = ({ setQuestions }) => {
+const ActionButtons = ({ setQuestions, setIsLoading }) => {
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
 
+    setIsLoading(true);
     const formData = new FormData();
     formData.append('file', file);
 
@@ -17,18 +19,19 @@ const ActionButtons = ({ setQuestions }) => {
       });
       if (response.ok) {
         const data = await response.json();
-        setQuestions(JSON.parse(data.questions));
-        alert('File uploaded successfully!');
+        setQuestions(data.questions);
       } else {
-        alert('Upload failed.');
-        const errorData = await response.json(); // Parse the JSON body
-        throw new Error(errorData.error); // Throw the error message
+        const errorData = await response.json();
+        throw new Error(errorData.error);
+        setIsLoading(false);
       }
     } catch (error) {
       console.error('Upload error:', error.message);
       alert('Upload failed');
+      setIsLoading(false);
     }
   };
+
 
   return (
     <div className="action-buttons">

@@ -20,7 +20,7 @@ const ActionButtons = ({ setQuestions, setIsLoading }) => {
       if (response.ok) {
         const data = await response.json();
         console.log(data.questions);
-        setQuestions(data.questions);
+        setQuestions(JSON.parse(data.questions));
       } else {
         const errorData = await response.json();
         throw new Error(errorData.error);

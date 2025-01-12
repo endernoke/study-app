@@ -74,6 +74,26 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
     try {
         // Convert file buffer to base64
         const encodedFile = req.file.buffer.toString('base64');
+        // Manually etermine mine type based on file extension:
+        const extension = req.file.originalname.split('.').pop().toUpperCase();
+        let mimetype = 'application/octet-stream';
+        switch (extension) {
+            case 'PDF':
+                mimetype = 'application/pdf';
+                break;
+            case 'TXT':
+                mimetype = 'text/plain';
+                break;
+            case 'MD':
+                mimetype = 'text/md';
+                break;
+            case 'RTF':
+                mimetype = 'text/rtf';
+                break;
+            default:
+                // throw error
+                return res.status(400).json({ error: 'File type not supported.' });
+        }
         
         // Read the prompt file
         const promptFilePath = path.join(__dirname, 'prompt.txt');
@@ -90,7 +110,7 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
             {
                 inlineData: {
                     data: encodedFile,
-                    mimeType: "text/plain",
+                    mimeType: mimetype,
                 },
             },
             prompt

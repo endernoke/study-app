@@ -40,7 +40,7 @@ const ActionButtons = ({ setQuestions, setIsLoading }) => {
           type="file"
           id="file-upload"
           onChange={handleFileUpload}
-          accept=".txt"
+          accept=".txt,.pdf,.md,.rtf"
           style={{ display: 'none' }}
         />
         <label htmlFor="file-upload" className="action-button">

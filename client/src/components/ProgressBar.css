@@ -1,0 +1,21 @@
+.progress-bar-container {
+  position: fixed;
+  bottom: 70px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--bg-secondary);
+  z-index: 100;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--accent-color);
+  transition: width 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .progress-bar-container {
+    bottom: 90px;
+  }
+}

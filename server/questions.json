@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "type": "multiple-choice",
+    "description": "According to Maslow, a company primarily focusing on providing competitive salaries and comprehensive health benefits is likely addressing which level of needs?",
+    "choices": {
+      "A": "Self-actualization",
+      "B": "Ego",
+      "C": "Social",
+      "D": "Safety and Security"
+    },
+    "answer": "D"
+  },
+  {
+    "id": 2,
+    "type": "multiple-choice",
+    "description": "A manager who believes in Theory X is most likely to implement which motivational strategy?",
+    "choices": {
+      "A": "Empowerment and autonomy",
+      "B": "Challenging and enriching tasks",
+      "C": "Close supervision and performance-based bonuses",
+      "D": "Collaborative decision-making"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 3,
+    "type": "multiple-choice",
+    "description": "Herzberg's Two-Factor Theory suggests that which of the following would be most effective in increasing employee motivation?",
+    "choices": {
+      "A": "Improving the office break room",
+      "B": "Increasing the frequency of performance reviews",
+      "C": "Providing opportunities for skill development and advancement",
+      "D": "Implementing a stricter attendance policy"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 4,
+    "type": "multiple-choice",
+    "description": "Which communication direction is most likely to be used for conveying employee grievances?",
+    "choices": {
+      "A": "Downward",
+      "B": "Upward",
+      "C": "Lateral",
+      "D": "Diagonal"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 5,
+    "type": "multiple-choice",
+    "description": "An employee consistently exceeding expectations despite receiving only standard benefits is likely motivated by which of Maslow's needs (assuming lower needs are met)?",
+    "choices": {
+      "A": "Physiological",
+      "B": "Safety and Security",
+      "C": "Ego or Self-Actualization",
+      "D": "None of the above"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 6,
+    "type": "multiple-choice",
+    "description": "According to Herzberg, addressing hygiene factors primarily serves to:",
+    "choices": {
+      "A": "Increase motivation",
+      "B": "Decrease dissatisfaction",
+      "C": "Increase satisfaction",
+      "D": "Decrease motivation"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 7,
+    "type": "multiple-choice",
+    "description": "Which form of internal communication is best suited for disseminating complex company policy changes?",
+    "choices": {
+      "A": "Informal grapevine",
+      "B": "Notice board announcement",
+      "C": "Staff meeting and Q&A session",
+      "D": "Inter-departmental memo"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 8,
+    "type": "multiple-choice",
+    "description": "A Theory Y manager would likely perceive employee resistance to a new initiative as:",
+    "choices": {
+      "A": "Inherent laziness",
+      "B": "Lack of understanding or involvement",
+      "C": "A need for stricter control",
+      "D": "A desire for increased compensation"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 9,
+    "type": "multiple-choice",
+    "description": "Which internal communication program is specifically designed to address the social needs of employees?",
+    "choices": {
+      "A": "Orientation program",
+      "B": "Mentoring program",
+      "C": "Social gathering",
+      "D": "All of the above"
+    },
+    "answer": "D"
+  },
+  {
+    "id": 10,
+    "type": "multiple-choice",
+    "description": "If an employee feels unappreciated despite a recent promotion, which of Herzberg's factors is likely lacking?",
+    "choices": {
+      "A": "Hygiene factor - Status",
+      "B": "Motivator - Recognition",
+      "C": "Hygiene factor - Salary",
+      "D": "Motivator - Advancement"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 11,
+    "type": "multiple-choice",
+    "description": "Which communication channel is most susceptible to distortion and misinterpretation?",
+    "choices": {
+      "A": "Formal written communication",
+      "B": "Informal oral communication",
+      "C": "Face-to-face communication",
+      "D": "Electronic communication"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 12,
+    "type": "multiple-choice",
+    "description": "According to Maslow, which need must be fulfilled before an employee can be motivated by challenging work?",
+    "choices": {
+      "A": "Self-actualization",
+      "B": "Ego",
+      "C": "Social and Esteem",
+      "D": "Physiological and Safety"
+    },
+    "answer": "D"
+  },
+  {
+    "id": 13,
+    "type": "multiple-choice",
+    "description": "Herzberg would categorize 'good working conditions' as:",
+    "choices": {
+      "A": "A motivator",
+      "B": "A hygiene factor",
+      "C": "Both a motivator and a hygiene factor",
+      "D": "Neither a motivator nor a hygiene factor"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 14,
+    "type": "multiple-choice",
+    "description": "Which management theory emphasizes employee self-direction and commitment to objectives?",
+    "choices": {
+      "A": "Theory X",
+      "B": "Theory Y",
+      "C": "Two-Factor Theory",
+      "D": "Hierarchy of Needs"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 15,
+    "type": "multiple-choice",
+    "description": "What is the primary purpose of an employee attitude survey?",
+    "choices": {
+      "A": "To gauge employee satisfaction and identify potential issues",
+      "B": "To evaluate individual employee performance",
+      "C": "To disseminate company policies and procedures",
+      "D": "To foster social interaction among employees"
+    },
+    "answer": "A"
+  },
+  {
+    "id": 16,
+    "type": "multiple-choice",
+    "description": "A manager struggling to motivate a high-performing employee should consider which theory to understand potential unmet needs?",
+    "choices": {
+      "A": "Theory X",
+      "B": "Maslow's Hierarchy of Needs",
+      "C": "Herzberg's Two-Factor Theory",
+      "D": "Both B and C"
+    },
+    "answer": "D"
+  },
+  {
+    "id": 17,
+    "type": "multiple-choice",
+    "description": "Which communication method is most appropriate for providing confidential feedback to an employee?",
+    "choices": {
+      "A": "Company-wide email",
+      "B": "Notice board posting",
+      "C": "Private face-to-face meeting",
+      "D": "Group staff meeting"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 18,
+    "type": "multiple-choice",
+    "description": "According to McGregor, a Theory X manager would most likely attribute low productivity to:",
+    "choices": {
+      "A": "Lack of challenging work",
+      "B": "Inadequate recognition",
+      "C": "Employee's inherent dislike of work",
+      "D": "Poor working conditions"
+    },
+    "answer": "C"
+  },
+  {
+    "id": 19,
+    "type": "multiple-choice",
+    "description": "Which of the following is NOT a key element of effective internal communication?",
+    "choices": {
+      "A": "Clarity and conciseness",
+      "B": "Use of technical jargon",
+      "C": "Two-way communication flow",
+      "D": "Appropriate channel selection"
+    },
+    "answer": "B"
+  },
+  {
+    "id": 20,
+    "type": "multiple-choice",
+    "description": "If a company implements a comprehensive mentoring program, which of Maslow's needs is it MOST likely targeting beyond basic needs?",
+    "choices": {
+      "A": "Physiological",
+      "B": "Social and Esteem",
+      "C": "Self-Actualization",
+      "D": "Safety and Security"
+    },
+    "answer": "B"
+  }
+]

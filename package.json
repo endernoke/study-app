@@ -1,0 +1,14 @@
+{
+  "name": "study-app",
+  "version": "0.1.0",
+  "description": "Webapp to turn studying into an engaging social activity",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "study"
+  ],
+  "author": "James Zheng",
+  "license": "ISC"
+}

@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs').promises;
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const multer = require('multer');
-const dotenv = require('dotenv');
+const dotenv = require('dotenv')
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -76,7 +76,14 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
         const encodedFile = req.file.buffer.toString('base64');
         
         // Read the prompt file
-        const prompt = await fs.readFile('prompt.txt', 'utf-8');
+        const promptFilePath = path.join(__dirname, 'prompt.txt');
+        const fileExists = await fs.access(promptFilePath)
+                .then(() => true)
+                .catch(() => false);
+        if (!fileExists) {
+            return res.status(500).json({ error: 'Internal Server Error: file processing failed.' });
+        }
+        const prompt = await fs.readFile(promptFilePath, 'utf-8');
         
         // Send the file and prompt to the processing API
         const result = await model.generateContent([
@@ -86,14 +93,14 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
                     mimeType: "text/plain",
                 },
             },
-            prompt,
+            prompt
         ]);
         console.log(result.response.text());
         
         res.json({ questions: result.response.text() });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: `An error occurred while processing the file: ${error.message}` });
+        console.log(error.toString());
+        res.status(500).json({ error: 'Internal Server Error:\n'+error.toString() });
     }
 });
 
@@ -102,10 +109,10 @@ app.use((req, res, next) => {
     res.status(404).json({ error: 'Not Found' });
 });
 
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ error: 'Internal Server Error' });
-});
+// app.use((err, req, res, next) => {
+//     console.error(JSON.stringify(err));
+//     res.status(500).json({ error: 'Internal Server Error Bruh'+err.toString() });
+// });
 
 // Start the server
 app.listen(PORT, '0.0.0.0', () => {

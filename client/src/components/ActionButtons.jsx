@@ -20,10 +20,12 @@ const ActionButtons = ({ setQuestions }) => {
         setQuestions(JSON.parse(data.questions));
         alert('File uploaded successfully!');
       } else {
-        alert('Upload failed');
+        alert('Upload failed.');
+        const errorData = await response.json(); // Parse the JSON body
+        throw new Error(errorData.error); // Throw the error message
       }
     } catch (error) {
-      console.error('Upload error:', error);
+      console.error('Upload error:', error.message);
       alert('Upload failed');
     }
   };

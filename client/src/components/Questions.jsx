@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-//import { dummyQuestions } from './QuestionData';
 import QuestionCard from './QuestionCard';
 import ActionButtons from './ActionButtons';
 import ProgressBar from './ProgressBar';
@@ -12,17 +11,21 @@ const Questions = () => {
   const [isAnswered, setIsAnswered] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [forbidTransition, setForbidTransition] = useState(false);
+  const [slideDirection, setSlideDirection] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const containerRef = useRef(null);
-  let touchStartY = useRef(null);
+  const touchStartY = useRef(null);
+  const touchStartX = useRef(null);
+  
+  const SWIPE_THRESHOLD = 50;
+  const SCROLL_THRESHOLD = 50;
 
   const fetchQuestions = async () => {
     setIsLoading(true);
     try {
       const response = await fetch('/api/questions');
-      if (!response.ok) {
-        throw new Error('Failed to fetch questions');
-      }
+      if (!response.ok) throw new Error('Failed to fetch questions');
       const data = await response.json();
       setQuestions(data);
     } catch (error) {
@@ -31,45 +34,70 @@ const Questions = () => {
       setIsLoading(false);
     }
   };
-  
-  const changeQuestion = (direction) => {
-    if (isTransitioning || isLoading) return;
 
-    const newIndex = currentIndex + direction;
-    if (newIndex >= 0 && newIndex < questions.length) {
-      setIsTransitioning(true);
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleWheel = (e) => {
+      e.preventDefault();
+      if (Math.abs(e.deltaY) < SCROLL_THRESHOLD) return;
+      changeQuestion(e.deltaY > 0 ? 'next' : 'prev');
+    };
+
+    const handleTouchStart = (e) => {
+      touchStartY.current = e.touches[0].clientY;
+      touchStartX.current = e.touches[0].clientX;
+    };
+
+    const handleTouchMove = (e) => {
+      e.preventDefault();
+      if (!touchStartY.current || !touchStartX.current) return;
+
+      const deltaY = touchStartY.current - e.touches[0].clientY;
+      const deltaX = touchStartX.current - e.touches[0].clientX;
+
+      if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) >= SWIPE_THRESHOLD) {
+        changeQuestion(deltaY > 0 ? 'next' : 'prev');
+        touchStartY.current = null;
+        touchStartX.current = null;
+      }
+    };
+
+    const handleTouchEnd = () => {
+      touchStartY.current = null;
+      touchStartX.current = null;
+    };
+
+    container.addEventListener('wheel', handleWheel, { passive: false });
+    container.addEventListener('touchstart', handleTouchStart, { passive: false });
+    container.addEventListener('touchmove', handleTouchMove, { passive: false });
+    container.addEventListener('touchend', handleTouchEnd);
+
+    return () => {
+      container.removeEventListener('wheel', handleWheel);
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+      container.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [questions, currentIndex, isTransitioning]);
+
+  const changeQuestion = (direction) => {
+    if (isTransitioning) return;
+    
+    const newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
+    if (newIndex < 0 || newIndex >= questions.length) return;
+
+    setIsTransitioning(true);
+    setSlideDirection(direction === 'next' ? 'sliding-up' : 'sliding-down');
+    
+    setTimeout(() => {
+      setSlideDirection(null);
+      setIsTransitioning(false);
       setCurrentIndex(newIndex);
       setIsAnswered(false);
       setSelectedAnswer(null);
-      setTimeout(() => setIsTransitioning(false), 300); // Match transition duration
-    }
-  };
-
-  const handleWheel = (e) => {
-    e.preventDefault();
-    if (Math.abs(e.deltaY) < 30) return;
-    changeQuestion(e.deltaY > 0 ? 1 : -1);
-  };
-
-  const handleTouchStart = (e) => {
-    touchStartY.current = e.touches[0].clientY;
-  };
-
-  const handleTouchMove = (e) => {
-    e.preventDefault();
-    if (touchStartY.current === null) return;
-
-    const touchEndY = e.touches[0].clientY;
-    const diff = touchStartY.current - touchEndY;
-
-    if (Math.abs(diff) > 50) { // Threshold for swipe
-      changeQuestion(diff > 0 ? 1 : -1);
-      touchStartY.current = null;
-    }
-  };
-
-  const handleTouchEnd = () => {
-    touchStartY.current = null;
+    }, 300);
   };
 
   const handleAnswerSelect = (answer) => {
@@ -79,61 +107,73 @@ const Questions = () => {
   };
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener('wheel', handleWheel, { passive: false });
-    }
-    return () => {
-      if (container) {
-        container.removeEventListener('wheel', handleWheel);
-      }
-    };
-  }, [currentIndex, isTransitioning]);
-
-  useEffect(() => {
     fetchQuestions();
   }, []);
 
-  const currentQuestion = questions[currentIndex];
+  if (isLoading) {
+    return (
+      <div className="questions-container">
+        <LoadingSpinner message="Loading questions..." />
+      </div>
+    );
+  }
 
   return (
     <div 
-      className="questions-container" 
+      className={'questions-container'}
       ref={containerRef}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
     >
-      {isLoading ? (
-        <LoadingSpinner message="Loading questions..." />
-      ) : (
-        questions.length > 0 && (
-          <>
-            <div className="question-wrapper">
+      {questions.length > 0 && (
+        <>
+          <div className={`question-wrapper current-${slideDirection ? `${slideDirection}` : 'static'}`}>
+            <QuestionCard
+              question={questions[currentIndex]}
+              isActive={true}
+              isAnswered={isAnswered}
+              selectedAnswer={selectedAnswer}
+              onAnswerSelect={handleAnswerSelect}
+            />
+          </div>
+
+          {currentIndex < questions.length - 1 && (
+            <div className={`question-wrapper next-${slideDirection ? `${slideDirection}` : 'static'}`}>
               <QuestionCard
-                question={currentQuestion}
-                isActive={true}
-                isAnswered={isAnswered}
-                selectedAnswer={selectedAnswer}
-                onAnswerSelect={handleAnswerSelect}
+                question={questions[currentIndex + 1]}
+                isActive={false}
+                isAnswered={false}
+                selectedAnswer={null}
+                onAnswerSelect={() => {}}
               />
             </div>
-            <ActionButtons 
-              setQuestions={(newQuestions) => {
-                setQuestions(newQuestions);
-                setCurrentIndex(0);
-                setIsAnswered(false);
-                setSelectedAnswer(null);
-                setIsLoading(false);
-              }} 
-              setIsLoading={setIsLoading}
-            />
-            <ProgressBar 
-              current={currentIndex + 1} 
-              total={questions.length} 
-            />
-          </>
-        )
+          )}
+
+          {currentIndex > 0 && (
+            <div className={`question-wrapper prev-${slideDirection ? `${slideDirection}` : 'static'}`}>
+              <QuestionCard
+                question={questions[currentIndex - 1]}
+                isActive={false}
+                isAnswered={false}
+                selectedAnswer={null}
+                onAnswerSelect={() => {}}
+              />
+            </div>
+          )}
+
+          <ActionButtons 
+            setQuestions={(newQuestions) => {
+              setQuestions(newQuestions);
+              setCurrentIndex(0);
+              setIsAnswered(false);
+              setSelectedAnswer(null);
+              setIsLoading(false);
+            }} 
+            setIsLoading={setIsLoading}
+          />
+          <ProgressBar 
+            current={currentIndex + 1} 
+            total={questions.length} 
+          />
+        </>
       )}
     </div>
   );

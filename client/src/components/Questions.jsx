@@ -10,6 +10,7 @@ const Questions = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [answeredQuestions, setAnsweredQuestions] = useState({});
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [forbidTransition, setForbidTransition] = useState(false);
   const [slideDirection, setSlideDirection] = useState(null);
@@ -104,8 +105,12 @@ const Questions = () => {
     if (isAnswered) return;
     setSelectedAnswer(answer);
     setIsAnswered(true);
+    setAnsweredQuestions(prev => ({
+      ...prev,
+      [currentIndex]: {answer}
+    }));
   };
-
+  
   useEffect(() => {
     fetchQuestions();
   }, []);
@@ -129,8 +134,8 @@ const Questions = () => {
             <QuestionCard
               question={questions[currentIndex]}
               isActive={true}
-              isAnswered={isAnswered}
-              selectedAnswer={selectedAnswer}
+              isAnswered={isAnswered || answeredQuestions[currentIndex]?.answer}
+              selectedAnswer={selectedAnswer || answeredQuestions[currentIndex]?.answer}
               onAnswerSelect={handleAnswerSelect}
             />
           </div>
@@ -166,6 +171,7 @@ const Questions = () => {
               setCurrentIndex(0);
               setIsAnswered(false);
               setSelectedAnswer(null);
+              setAnsweredQuestions({}); // Clear answered questions
               setIsLoading(false);
             }} 
             setIsLoading={setIsLoading}

@@ -160,6 +160,7 @@ const Questions = () => {
           )}
 
           <ActionButtons 
+            buttonsList={['upload', 'explain', 'bookmark', 'discuss']}
             setQuestions={(newQuestions) => {
               setQuestions(newQuestions);
               setCurrentIndex(0);

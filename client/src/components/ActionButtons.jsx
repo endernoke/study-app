@@ -3,7 +3,7 @@ import { FaLightbulb, FaBookmark, FaComments, FaUpload } from 'react-icons/fa';
 import LoadingSpinner from './LoadingSpinner';
 import './ActionButtons.css';
 
-const ActionButtons = ({ setQuestions, setIsLoading }) => {
+const ActionButtons = ({buttonsList, setQuestions, setIsLoading}) => {
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -35,31 +35,40 @@ const ActionButtons = ({ setQuestions, setIsLoading }) => {
 
   return (
     <div className="action-buttons">
-      <div className="action-button upload-button">
-        <input
-          type="file"
-          id="file-upload"
-          onChange={handleFileUpload}
-          accept=".txt,.pdf,.md,.rtf"
-          style={{ display: 'none' }}
-        />
-        <label htmlFor="file-upload" className="action-button">
-          <FaUpload />
-          <span>Upload</span>
-        </label>
-      </div>
-      <button className="action-button">
-        <FaLightbulb />
-        <span>Explain</span>
-      </button>
-      <button className="action-button">
-        <FaBookmark />
-        <span>Bookmark</span>
-      </button>
-      <button className="action-button">
-        <FaComments />
-        <span>Discuss</span>
-      </button>
+      {/* only add buttons whose name is in the buttonsList */}
+      {buttonsList.includes('upload') && (
+        <div className="action-button upload-button">
+          <input
+            type="file"
+            id="file-upload"
+            onChange={handleFileUpload}
+            accept=".txt,.pdf,.md,.rtf"
+            style={{ display: 'none' }}
+          />
+          <label htmlFor="file-upload" className="action-button">
+            <FaUpload />
+            <span>Upload</span>
+          </label>
+        </div>
+      )}
+      {buttonsList.includes('explain') && (
+        <button className="action-button">
+          <FaLightbulb />
+          <span>Explain</span>
+        </button>
+      )}
+      {buttonsList.includes('bookmark') && (
+        <button className="action-button">
+          <FaBookmark />
+          <span>Bookmark</span>
+        </button>
+      )}
+      {buttonsList.includes('discuss') && (
+        <button className="action-button">
+          <FaComments />
+          <span>Discuss</span>
+        </button>
+      )}
     </div>
   );
 };

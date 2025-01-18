@@ -1,0 +1,232 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 24px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  overscroll-behavior: contain;
+}
+
+.modal-content::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Opera */
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  color: var(--text-primary);
+}
+
+.modal-content h3 {
+  margin-bottom: 10px;
+  color: var(--text-secondary);
+}
+
+.format-section,
+.question-count-section,
+.description-section {
+  margin-bottom: 20px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.radio-group label {
+  flex: 1;
+  min-width: 120px;
+  padding: 8px 12px;
+  background-color: var(--bg-primary);
+  border: 2px solid var(--text-secondary);
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.radio-group label:hover {
+  border-color: var(--accent-color);
+}
+
+.radio-group input[type="radio"] {
+  display: none;
+}
+
+.radio-group input[type="radio"]:checked + span {
+  color: var(--accent-color);
+}
+
+.radio-group label:has(input[type="radio"]:checked) {
+  border-color: var(--accent-color);
+  background-color: rgba(187, 134, 252, 0.1);
+}
+
+.question-count-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.question-slider {
+  flex: 1;
+  height: 6px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--text-secondary);
+  border-radius: 3px;
+  outline: none;
+}
+
+.question-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  cursor: pointer;
+  border: none;
+}
+
+.question-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  cursor: pointer;
+  border: none;
+}
+
+.question-input {
+  width: 60px;
+  padding: 8px;
+  border-radius: 6px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--text-secondary);
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.question-input::-webkit-inner-spin-button,
+.question-input::-webkit-outer-spin-button {
+  opacity: 1;
+}
+
+.description-section label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 8px;
+  border-radius: 6px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--text-secondary);
+  color: var(--text-primary);
+  resize: vertical;
+}
+
+.drop-zone {
+  border: 2px dashed var(--text-secondary);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.drop-zone.dragging {
+  border-color: var(--accent-color);
+  background-color: rgba(187, 134, 252, 0.1);
+}
+
+.drop-zone p {
+  margin: 8px 0;
+  color: var(--text-secondary);
+}
+
+.select-file-btn {
+  background-color: var(--accent-color);
+  color: var(--bg-primary);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancel-btn,
+.submit-btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background-color: transparent;
+  color: var(--text-secondary);
+}
+
+.submit-btn {
+  background-color: var(--accent-color);
+  color: var(--bg-primary);
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: #ff4444;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.file-types-info {
+  color: var(--text-secondary);
+  font-size: 0.9em;
+  margin: 8px 0;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 16px;
+  }
+
+  .radio-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}

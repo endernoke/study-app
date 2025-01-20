@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
 import './Flashcard.css';
 
-const Flashcard = ({ data }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
-
+const Flashcard = ({ question, isActive, isFlipped, onFlip }) => {
   const handleClick = () => {
-    setIsFlipped(!isFlipped);
+    if (!isActive) return;
+    onFlip();
   };
 
   return (
     <div 
-      className={`flashcard ${isFlipped ? 'flipped' : ''}`}
+      className={`flashcard ${isFlipped ? 'flipped' : ''} ${!isActive ? 'disabled' : ''}`}
       onClick={handleClick}
     >
       <div className="flashcard-inner">
         <div className="flashcard-front">
-          <h2>{data.question}</h2>
-          <span className="category-tag">{data.category}</span>
+          {question.description}
         </div>
         <div className="flashcard-back">
-          <p>{data.answer}</p>
+          {question.answer}
         </div>
       </div>
     </div>

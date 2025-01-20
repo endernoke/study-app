@@ -96,18 +96,31 @@ const Questions = () => {
       setSlideDirection(null);
       setIsTransitioning(false);
       setCurrentIndex(newIndex);
-      setIsAnswered(false);
-      setSelectedAnswer(null);
+      // Only reset answer state for multiple choice questions
+      if (questions[newIndex].type === 'multiple-choice') {
+        setIsAnswered(false);
+        setSelectedAnswer(null);
+      }
     }, 300);
   };
 
   const handleAnswerSelect = (answer) => {
-    if (isAnswered) return;
+    if (isAnswered || questions[currentIndex].type === 'flashcard') return;
     setSelectedAnswer(answer);
     setIsAnswered(true);
     setAnsweredQuestions(prev => ({
       ...prev,
       [currentIndex]: {answer}
+    }));
+  };
+
+  const handleFlip = (index) => {
+    setAnsweredQuestions(prev => ({
+      ...prev,
+      [index]: {
+        ...prev[index],
+        isFlipped: !prev[index]?.isFlipped
+      }
     }));
   };
   
@@ -136,7 +149,9 @@ const Questions = () => {
               isActive={true}
               isAnswered={isAnswered || answeredQuestions[currentIndex]?.answer}
               selectedAnswer={selectedAnswer || answeredQuestions[currentIndex]?.answer}
+              isFlipped={answeredQuestions[currentIndex]?.isFlipped}
               onAnswerSelect={handleAnswerSelect}
+              onFlip={() => handleFlip(currentIndex)}
             />
           </div>
 

@@ -1,13 +1,28 @@
 import React from 'react';
+import Flashcard from './Flashcard';
 import './QuestionCard.css';
 
 const QuestionCard = ({ 
   question, 
   isActive, 
   isAnswered, 
-  selectedAnswer, 
-  onAnswerSelect 
+  selectedAnswer,
+  isFlipped,
+  onAnswerSelect,
+  onFlip 
 }) => {
+  if (question.type === 'flashcard') {
+    return (
+      <Flashcard 
+        question={question} 
+        isActive={isActive} 
+        isAnswered={isAnswered} 
+        isFlipped={isFlipped}
+        onFlip={onFlip}
+      />
+    );
+  }
+  
   const getChoiceClassName = (choice) => {
     if (!isAnswered) return 'choice';
     

@@ -1,4 +1,5 @@
-export const dummyQuestions = [
+export const dummyQuestions = 
+[
   {
     id: 1,
     type: 'multiple-choice',
@@ -58,5 +59,23 @@ export const dummyQuestions = [
       D: '2008'
     },
     answer: 'C'
+  },
+  {
+    id: 6,
+    type: "flashcard",
+    description: "What is the capital of Zimbabwe?",
+    answer: "Harare"
+  },
+  {
+    id: 7,
+    type: "flashcard",
+    description: "Define quantum entanglement.",
+    answer: "The phenomenon whereby a pair of particles are generated in such a way that the individual quantum states of each are indefinite until measured, and the act of measuring one determines the result of measuring the other, even when at a distance from each other."
+  },
+  {
+    id: 8,
+    type: "flashcard",
+    description: "Pythagorean Theorem",
+    answer: "a^2 + b^2 = c^2"
   }
 ];

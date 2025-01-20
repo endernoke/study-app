@@ -191,7 +191,6 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
         }
         
         const finalPrompt = basePrompt + formatInstructions;
-        console.log('Prompt:', finalPrompt);
 
         // Send the file and prompt to the processing API
         const result = await model.generateContent([

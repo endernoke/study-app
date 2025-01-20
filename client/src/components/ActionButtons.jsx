@@ -14,7 +14,7 @@ const ActionButtons = ({ buttonsList, setQuestions, setIsLoading }) => {
     setIsUploadModalOpen(false);
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('format', format);
+    formData.append('requestedFormat', format);
     formData.append('requestedQuestionCount', questionCount);
     formData.append('description', description);
 

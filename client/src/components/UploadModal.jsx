@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import './UploadModal.css';
 
 export const ACCEPTED_FILE_TYPES = ['.pdf', '.txt', '.rtf', '.md'];
+const MAX_FILE_SIZE = 19.9 * 1024 * 1024; // 19.9MB in bytes
+const MAX_DESCRIPTION_LENGTH = 200;
 
 const UploadModal = ({ isOpen, onClose, onUpload }) => {
   const [format, setFormat] = useState('multiple-choice');
@@ -80,19 +82,35 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
     e.preventDefault();
     setIsDragging(false);
     const droppedFile = e.dataTransfer.files[0];
-    if (droppedFile) setFile(droppedFile);
+    if (droppedFile) onSelectFile(droppedFile);
+  };
+
+  const validateFile = (selectedFile) => {
+    if (selectedFile.size > MAX_FILE_SIZE) {
+      setUploadError('File size must be less than 19.9 MB');
+      return false;
+    }
+    const fileExtension = '.' + selectedFile.name.split('.').pop().toLowerCase();
+    if (!ACCEPTED_FILE_TYPES.includes(fileExtension)) {
+      setUploadError('Please upload only PDF, TXT, RTF, or MD files');
+      return false;
+    }
+    return true;
   };
 
   const onSelectFile = (selectedFile) => {
     if (!selectedFile) return;
-    // Validate file type
-    const fileExtension = '.' + selectedFile.name.split('.').pop().toLowerCase();
-    if (!ACCEPTED_FILE_TYPES.includes(fileExtension)) {
-        setUploadError('Please upload only PDF, TXT, RTF, or MD files');
-        return;
+
+    if (!validateFile(selectedFile)) {
+      return;
     }
     setUploadError('');
     setFile(selectedFile);
+  };
+  
+  const handleDescriptionChange = (e) => {
+    const newDescription = e.target.value.slice(0, MAX_DESCRIPTION_LENGTH);
+    setDescription(newDescription);
   };
   
   const handleSubmit = (e) => {
@@ -168,12 +186,18 @@ const UploadModal = ({ isOpen, onClose, onUpload }) => {
 
           <div className="description-section">
             <label htmlFor="description">Description (optional)</label>
-            <textarea
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="e.g. Focus on topic 3.1"
-            />
+            <div className="textarea-container">
+              <textarea
+                id="description"
+                value={description}
+                onChange={handleDescriptionChange}
+                placeholder="e.g. Focus on topic 3.1"
+                maxLength={MAX_DESCRIPTION_LENGTH}
+              />
+              <span className="character-count">
+                {description.length}/{MAX_DESCRIPTION_LENGTH}
+              </span>
+            </div>
           </div>
 
           <div

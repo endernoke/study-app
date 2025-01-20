@@ -136,10 +136,26 @@
   color: var(--text-secondary);
 }
 
+.textarea-container {
+  position: relative;
+}
+
+.character-count {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-size: 0.8em;
+  color: var(--text-secondary);
+  background-color: var(--bg-primary);
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
 textarea {
   width: 100%;
   min-height: 80px;
   padding: 8px;
+  padding-bottom: 24px; /* Make room for character count */
   border-radius: 6px;
   background-color: var(--bg-primary);
   border: 1px solid var(--text-secondary);

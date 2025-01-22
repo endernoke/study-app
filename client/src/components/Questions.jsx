@@ -5,7 +5,7 @@ import ProgressBar from './ProgressBar';
 import LoadingSpinner from './LoadingSpinner';
 import './Questions.css';
 
-const Questions = () => {
+const Questions = ({actionButtonsList = []}) => {
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
@@ -180,7 +180,7 @@ const Questions = () => {
           )}
 
           <ActionButtons 
-            buttonsList={['upload', 'explain', 'bookmark', 'discuss']}
+            buttonsList={actionButtonsList}
             setQuestions={(newQuestions) => {
               setQuestions(newQuestions);
               setCurrentIndex(0);

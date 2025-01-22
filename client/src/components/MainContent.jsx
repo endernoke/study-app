@@ -10,7 +10,9 @@ const MainContent = ({ activeTab }) => {
       case 'home':
         return <Home />;
       case 'questions':
-        return <Questions />;
+        return <Questions 
+          actionButtonsList = {['upload']}
+        />;
       case 'settings':
         return <Settings />;
       default:

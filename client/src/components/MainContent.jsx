@@ -1,7 +1,6 @@
 import React from 'react';
 import Home from './Home';
 import Questions from './Questions';
-import Settings from './Settings';
 import './MainContent.css';
 
 const MainContent = ({ activeTab }) => {
@@ -13,8 +12,6 @@ const MainContent = ({ activeTab }) => {
         return <Questions 
           actionButtonsList = {['upload']}
         />;
-      case 'settings':
-        return <Settings />;
       default:
         return <Home />;
     }

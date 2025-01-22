@@ -1,12 +1,11 @@
 import React from 'react';
-import { FaHome, FaQuestion, FaCog } from 'react-icons/fa';
+import { FaHome, FaQuestion } from 'react-icons/fa';
 import './Sidebar.css';
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
   const tabs = [
     { id: 'home', icon: FaHome, label: 'Home' },
     { id: 'questions', icon: FaQuestion, label: 'Questions' },
-    { id: 'settings', icon: FaCog, label: 'Settings' },
   ];
 
   return (

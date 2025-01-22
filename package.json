@@ -6,10 +6,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js"
   },
-  "keywords": [],
+  "keywords": ["study", "AI"],
   "author": "James Zheng",
-  "license": "ISC",
-  "description": "",
+  "license": "MIT",
+  "description": "Generate study questions from your learning materials using LLM. Upload your study documents and get AI-generated multiple-choice questions or flashcards to help you learn.",
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
     "dotenv": "^16.4.7",
